@@ -21,7 +21,6 @@ from django.dispatch import receiver
 
 
 
-
 class Admins(AbstractUser):
 	first_name = models.CharField(max_length = 50, null=True, blank=True)
 	last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -47,6 +46,7 @@ class Admins(AbstractUser):
 	REQUIRED_FIELDS = []
 
 	class Meta:
+		app_label = 'admin_app'
 		verbose_name = ('user')
 		verbose_name_plural = ('users')
 		indexes = [

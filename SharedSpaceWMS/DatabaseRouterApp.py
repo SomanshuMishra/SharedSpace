@@ -72,8 +72,8 @@ class DatabaseRouterApp:
             return db == 'customer'
 
         if app_label == 'orders_app':
-            return 'orders'
+            return db == 'orders'
 
-        if app_label == 'product':
-            return 'product'
+        if app_label == 'orders_app':
+            return db == 'product'
         return None

@@ -1,4 +1,4 @@
-"""SharedSpaceWMS URL Configuration
+"""Admin URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -15,7 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from admin_app.views import *
+
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from django.urls import path, include
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+ title='Test API',
+ default_version = 'v0.1',
+ description = "Test Api's for dashboard",
+ ),
+    public = True,
+    permission_classes = (permissions.AllowAny,),
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('swagger/',schema_view.with_ui('swagger',cache_timeout=0),name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('admin_app/', include('admin_app.urls')),
+
 ]

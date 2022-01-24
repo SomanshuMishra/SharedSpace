@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'SharedSpaceWMS.wsgi.application'
 
 
 DATABASE_ROUTERS = ['SharedSpaceWMS.DatabaseRouterApp.DatabaseRouterApp']
-DATABASE_APPS_MAPPING = {'admin_app':'admins', 'customer_app':'customer', 'order_app':'order', 'product_app':'product'}
+DATABASE_APPS_MAPPING = {'admin_app':'default', 'customer_app':'customer', 'order_app':'order', 'product_app':'product'}
 
 
 
@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'admins',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'password',
         'HOST':'localhost',
         'PORT':'5432',
         
@@ -112,7 +112,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'customer',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'password',
         'HOST':'localhost',
         'PORT':'5432',
         # 'PORT' : os.environ.get("MARKETING_SQL_PORT"),
@@ -132,7 +132,7 @@ DATABASES = {
        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'order',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'password',
         'HOST':'localhost',
         'PORT':'5432',
         'options':{
@@ -151,7 +151,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'product',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'password',
         'HOST':'localhost',
         'PORT':'5432',
         'options':{
