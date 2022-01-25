@@ -17,6 +17,20 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 # Create your models here.
+class Organization(models.Model):
+    organization_id = models.AutoField(primary_key=True)
+    organization_name = models.CharField(max_length=255, null=False, blank=False)
+    createad_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = "customer_app"
+
+class CustomerGroup(models.Model):
+    group_id = models.AutoField(primary_key=True)
+    group_name = models.CharField(max_length=255,null=True,blank=True)
+
+
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
@@ -28,8 +42,8 @@ class Customer(models.Model):
         max_length=10, null=True, blank=True
     )
     customer_billing_address_id = models.CharField(max_length=10, null=True, blank=True)
-    organization_id = models.CharField(max_length=10, null=True, blank=True)
-    customer_type = models.CharField(max_length=10, null=True, blank=True)
+    organization_id = models.ForeignKey(Organization,on_delete=models.CASCADE,null=False)
+    customer_type = models.ForeignKey(CustomerGroup,on_delete=models.CASCADE)
     createad_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     password = models.CharField(max_length=50, null=True, blank=True)
@@ -56,14 +70,7 @@ class CustomerAddress(models.Model):
         app_label = "customer_app"
 
 
-class Organization(models.Model):
-    organization_id = models.AutoField(primary_key=True)
-    organization_name = models.CharField(max_length=255, null=False, blank=False)
-    createad_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        app_label = "customer_app"
 
 
 class Country(models.Model):

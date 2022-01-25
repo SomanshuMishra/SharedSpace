@@ -19,6 +19,21 @@ from django.dispatch import receiver
 # from django.utils.translation import ugettext_lazy as _
 
 
+class Roles(models.Model):
+	role_name = models.CharField(max_length=50, null=True, blank=True)
+	role_code = models.CharField(max_length=50, null=True, blank=True)
+	role_status = models.CharField(max_length=50, null=True, blank=True)
+	class Meta:
+		app_label = 'admin_app'
+
+
+
+class RoleResources(models.Model):
+	role_id = models.ForeignKey(Roles, on_delete=models.CASCADE, null=False, blank=False)
+	resource_id = models.CharField(max_length=50, null=True, blank=True)
+	class Meta:
+		app_label = 'admin_app'
+
 
 
 class Admins(AbstractUser):
@@ -36,8 +51,7 @@ class Admins(AbstractUser):
 	status = models.CharField(max_length=30, null=True, blank=True)
 	last_login = models.DateTimeField(null=True)
 	first_login = models.DateTimeField(null=True)
-	role_id = models.CharField(max_length=50, null=True, blank=True)
-	
+	role_id = models.ForeignKey(Roles, on_delete=models.CASCADE, null=False, blank=False)
 
 
 
@@ -80,3 +94,5 @@ def create_hashed_password(sender, instance=None, created=False, **kwargs):
 		user.password = hash_password
 		# user.customer_id = random.randint(0,1000000)
 		user.save()
+
+

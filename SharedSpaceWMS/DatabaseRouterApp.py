@@ -14,7 +14,7 @@ class DatabaseRouterApp:
             return 'customer'
 
         if model._meta.app_label == 'order_app':
-            return 'orders'
+            return 'order'
 
         if model._meta.app_label == 'product_app':
             return 'product'
@@ -31,7 +31,7 @@ class DatabaseRouterApp:
             return 'customer'
 
         if model._meta.app_label == 'orders_app':
-            return 'orders'
+            return 'order'
 
         if model._meta.app_label == 'product_app':
             return 'product'
@@ -72,7 +72,7 @@ class DatabaseRouterApp:
             return db == 'customer'
 
         if app_label == 'orders_app':
-            return db == 'orders'
+            return db == 'order'
 
         if app_label == 'orders_app':
             return db == 'product'

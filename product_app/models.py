@@ -58,7 +58,8 @@ class Product(models.Model):
     product_name = models.CharField(max_length=150)
     product_short_description = models.TextField(null=True, blank=True)
     product_long_description = models.TextField(null=True, blank=True)
-    product_name = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
+    department_id = models.CharField(max_length=50, null=True, blank=True)
+    department_id = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
     product_status = models.ForeignKey(
         ProductStatus, on_delete=models.CASCADE, null=False
     )
@@ -75,11 +76,11 @@ class Product(models.Model):
     product_category_id = models.ForeignKey(
         Categories, on_delete=models.CASCADE, null=False
     )
-    group_id = models.CharField(max_length=50, null=True, blank=True)
+    # group_id = models.CharField(max_length=50, null=True, blank=True)
     product_notes = models.TextField(null=True, blank=True)
     product_info = models.TextField(null=True, blank=True)
     product_weight = models.CharField(max_length=50, null=True, blank=True)
-    product_unite = models.CharField(max_length=50, null=True, blank=True)
+    product_unit = models.CharField(max_length=50, null=True, blank=True)
     product_qty_hold = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True
     )
@@ -129,22 +130,38 @@ class ProductAttribute(models.Model):
         app_label = "product_app"
 
 
-class OrderProductAttribute(models.Model):
-    id = models.AutoField(primary_key=True)
-    product_attribute_id = models.ForeignKey(
-        ProductAttribute, on_delete=models.CASCADE, null=False
-    )
-    order_product_id = models.CharField(max_length=50, null=True, blank=True)
+# class OrderProductAttribute(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     product_attribute_id = models.ForeignKey(
+#         ProductAttribute, on_delete=models.CASCADE, null=False
+#     )
+#     order_product_id = models.CharField(max_length=50, null=True, blank=True)
 
+    # class Meta:
+    #     app_label = "product_app"
+
+class WareHouse(models.Model):
+    warehouse_id = models.AutoField(primary_key=True)
+    warehouse_name = models.CharField(max_length=50, null=True , blank=True)
+    warehouse_position = models.CharField(max_length=50, null=True , blank=True)
+    warehouse_status = models.CharField(max_length=50, null=True , blank=True)
     class Meta:
-        app_label = "product_app"
+        app_label = 'product_app'
+        
+class WareHouseLocation(models.Model):
+    location_id = models.AutoField(primary_key=True)
+    warehouse_id = models.ForeignKey(WareHouse,on_delete=models.CASCADE,null=False,blank=False)
+    location_name = models.CharField(max_length=50, null=True , blank=True)
+    class Meta:
+        app_label = 'product_app'
 
 
-class Product_Location(models.Model):
-    product_location_id = models.CharField(max_length=50, null=True, blank=True)
-    product_id = models.CharField(max_length=50, null=True, blank=True)
-    location_id = models.CharField(max_length=50, null=True, blank=True)
+class ProductLocation(models.Model):
+    product_location_id = models.AutoField(primary_key=True)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)
+    location_id = models.ForeignKey(WareHouseLocation, on_delete=models.CASCADE, null=False)
     product_quantity = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         app_label = "product_app"
+

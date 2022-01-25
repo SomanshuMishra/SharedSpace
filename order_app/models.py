@@ -42,19 +42,7 @@ class OrderStatus(models.Model):
 		app_label = 'order_app' 
 
 
-class WareHouse(models.Model):
-	warehouse_id = models.AutoField(primary_key=True)
-	warehouse_name = models.CharField(max_length=50, null=True , blank=True)
-	warehouse_position = models.CharField(max_length=50, null=True , blank=True)
-	warehouse_status = models.CharField(max_length=50, null=True , blank=True)
-	class Meta:
-		app_label = 'order_app'
-class WareHouseLocation(models.Model):
-	location_id = models.AutoField(primary_key=True)
-	warehouse_id = models.ForeignKey(WareHouse,on_delete=models.CASCADE,null=False,blank=False)
-	location_name = models.CharField(max_length=50, null=True , blank=True)
-	class Meta:
-		app_label = 'order_app'
+
 
 class OrderProducts(models.Model):
 	id  = models.AutoField(primary_key=True)
@@ -65,7 +53,7 @@ class OrderProducts(models.Model):
 	order_product_tax = models.DecimalField(max_digits=10, decimal_places=2, null=True , blank=True)
 	order_product_location_id = models.CharField(max_length=50, null=True , blank=True)
 	order_product_status_id = models.ForeignKey(OrderStatus,on_delete=models.CASCADE,null=False,blank=False)
-	order_product_warehouse_position = models.ForeignKey(WareHouseLocation,on_delete=models.CASCADE,null=False,blank=False)
+	order_product_warehouse_position = models.CharField(max_length=50, null=True , blank=True)
 	class Meta:
 		app_label = 'order_app'
 	

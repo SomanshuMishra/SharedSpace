@@ -8,3 +8,13 @@ class AdminSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Admins
 		fields = '__all__'
+
+class RolesSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Roles
+		fields = '__all__'
+
+class RoleResourcesSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = RoleResources
+		fields = '__all__'
